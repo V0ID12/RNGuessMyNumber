@@ -25,13 +25,20 @@ function GameScreen({ userNumber, onGameOver }) {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
+  // Determines if the current game is over
   useEffect(() => {
     if (currentGuess === userNumber) {
       onGameOver();
     }
   }, [currentGuess, userNumber, onGameOver]);
 
-  // direction => "lower" || "greater"
+  // Updates resets number boundaries when starting a new game
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
+
+  // Param direction => "lower" || "greater"
   function nextGuessHandler(direction) {
     // Validate user input
     if (
