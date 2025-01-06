@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonText: {
+    fontWeight: "bold",
     color: "white",
     textAlign: "center",
   },

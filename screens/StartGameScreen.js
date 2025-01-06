@@ -12,8 +12,14 @@ function StartGameScreen() {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <PrimaryButton>Reset</PrimaryButton>
-      <PrimaryButton>Confirm</PrimaryButton>
+      <View style={styles.inputButtonsContainer}>
+        <View style={styles.inputButtonContainer}>
+          <PrimaryButton>Reset</PrimaryButton>
+        </View>
+        <View style={styles.inputButtonContainer}>
+          <PrimaryButton>Confirm</PrimaryButton>
+        </View>
+      </View>
     </View>
   );
 }
@@ -22,6 +28,8 @@ export default StartGameScreen;
 
 const styles = StyleSheet.create({
   inputContainer: {
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
@@ -32,6 +40,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 }, // This is an iOS specific property to apply shadow affect
     shadowRadius: 6, // This is an iOS specific property to apply shadow affect
     shadowOpacity: 0.25, // This is an iOS specific property to apply shadow affect
+  },
+  inputButtonsContainer: {
+    flexDirection: "row",
+  },
+  inputButtonContainer: {
+    flex: 1,
   },
   numberInput: {
     height: 55,
