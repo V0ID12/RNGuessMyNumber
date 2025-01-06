@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
 
 import PrimaryButton from "../components/PrimaryButton";
+import Colors from "../constants/colors";
 
-function StartGameScreen({onPickNumber}) {
+function StartGameScreen({ onPickNumber }) {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   function numberInputHandler(enteredText) {
@@ -15,11 +16,9 @@ function StartGameScreen({onPickNumber}) {
 
     // Validates user input
     if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-      Alert.alert(
-        "Invaild Number!",
-        "Number has to be between 1 and 99.",
-        [{ text: "Okay", style: "destructive", onPress: resetInputHandler }]
-      );
+      Alert.alert("Invaild Number!", "Number has to be between 1 and 99.", [
+        { text: "Okay", style: "destructive", onPress: resetInputHandler },
+      ]);
       return;
     }
 
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
-    backgroundColor: "#3b021f",
+    backgroundColor: Colors.primary800,
     borderRadius: 8,
     elevation: 4, // This is an Android specific property to apply shadow affect
     shadowColor: "black", // This is an iOS specific property to apply shadow affect
@@ -82,9 +81,9 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     textAlign: "center",
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.accent500,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.accent500,
     marginVertical: 8,
   },
 });
