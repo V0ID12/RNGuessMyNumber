@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
-    backgroundColor: "#72063c",
+    backgroundColor: "#4e0329",
     borderRadius: 8,
     elevation: 4, // This is an Android specific property to apply shadow affect
     shadowColor: "black", // This is an iOS specific property to apply shadow affect
