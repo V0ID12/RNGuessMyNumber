@@ -1,6 +1,8 @@
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
+import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 import Colors from "./constants/colors";
 import StartGameScreen from "./screens/StartGameScreen";
@@ -11,6 +13,11 @@ export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
 
+  const [fontsLoaded] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber);
     setGameIsOver(false);
@@ -18,6 +25,11 @@ export default function App() {
 
   function gameOverHandler() {
     setGameIsOver(true);
+  }
+
+  // Renders the loading screen when loading fonts
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
 
   // Sets the default screen
