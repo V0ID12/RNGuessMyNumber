@@ -84,17 +84,16 @@ function GameScreen({ userNumber, onGameOver }) {
   const guessRoundListLength = guessRounds.length;
 
   // Dynamic styles
-  const widthDistance = width < 380 ? 0 : 300;
-  const marginHorizontal = width < 380 ? 0 : 18;
-  const screenPaddingDistance = width < 425 ? 32 : 0;
-  const listContainerPaddingDistance = width < 380 ? 0 : 6;
+  const cardWidth = width < 380 ? 0 : 300;
+  const cardMarginHorizontal = width < 380 ? 0 : 18;
+  const screenPadding = width < 425 ? 18 : 32;
+  const listContainerPadding = width < 380 ? 0 : 0;
 
-  return (
-    <View style={[styles.screen, { padding: screenPaddingDistance }]}>
-      <Title>Opponent's Guess</Title>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card
-        style={[{ width: widthDistance, marginHorizontal: marginHorizontal }]}
+        style={[{ width: cardWidth, marginHorizontal: cardMarginHorizontal }]}
       >
         <InstructionText style={styles.instructionText}>
           Higher or lower?
@@ -112,12 +111,35 @@ function GameScreen({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
-      <View
-        style={[
-          styles.listContainer,
-          { padding: listContainerPaddingDistance },
-        ]}
-      >
+    </>
+  );
+
+  // Creates widescreen content
+  if (width > 500) {
+    content = (
+      <>
+        <View style={styles.inputButtonsContainerWide}>
+          <View style={styles.inputButtonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
+              <Ionicons name="add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.inputButtonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+              <Ionicons name="remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <View style={[styles.screen, { padding: screenPadding }]}>
+      <Title>Opponent's Guess</Title>
+      {content}
+      <View style={[styles.listContainer, { padding: listContainerPadding }]}>
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -145,6 +167,10 @@ const styles = StyleSheet.create({
   },
   inputButtonsContainer: {
     flexDirection: "row",
+  },
+  inputButtonsContainerWide: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   inputButtonContainer: {
     flex: 1,
