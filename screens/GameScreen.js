@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import GuessLogItem from "../components/game/GuessLogItem";
@@ -26,6 +32,9 @@ function GameScreen({ userNumber, onGameOver }) {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
+
+  // Hook to dynamically update the width and height based on the current device
+  const { width, height } = useWindowDimensions();
 
   // Determines if the current game is over
   useEffect(() => {
@@ -71,13 +80,22 @@ function GameScreen({ userNumber, onGameOver }) {
     ]);
   }
 
+  // Dynamically tracks this vaule
   const guessRoundListLength = guessRounds.length;
 
+  // Dynamic styles
+  const widthDistance = width < 380 ? 0 : 300;
+  const marginHorizontal = width < 380 ? 0 : 18;
+  const screenPaddingDistance = width < 425 ? 32 : 0;
+  const listContainerPaddingDistance = width < 380 ? 0 : 6;
+
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { padding: screenPaddingDistance }]}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <Card>
+      <Card
+        style={[{ width: widthDistance, marginHorizontal: marginHorizontal }]}
+      >
         <InstructionText style={styles.instructionText}>
           Higher or lower?
         </InstructionText>
@@ -94,7 +112,12 @@ function GameScreen({ userNumber, onGameOver }) {
           </View>
         </View>
       </Card>
-      <View style={styles.listContainer}>
+      <View
+        style={[
+          styles.listContainer,
+          { padding: listContainerPaddingDistance },
+        ]}
+      >
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
@@ -115,7 +138,6 @@ export default GameScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 36,
     alignItems: "center",
   },
   instructionText: {
@@ -129,6 +151,5 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    padding: 16,
   },
 });

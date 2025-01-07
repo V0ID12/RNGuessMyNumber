@@ -1,21 +1,27 @@
-import { Dimensions, StyleSheet, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import Colors from "../../constants/colors";
 
-function Card({ children }) {
-  return <View style={styles.card}>{children}</View>;
+function Card({ children, style }) {
+  // Hook to dynamically update the width and height based on the current device
+  const { width, height } = useWindowDimensions();
+
+  // Dynamic styles
+  const marginTopDistance = height < 380 ? 30 : 10;
+
+  return (
+    <View style={[styles.card, { marginTop: marginTopDistance }, style]}>
+      {children}
+    </View>
+  );
 }
 
 export default Card;
-
-// Get the width of the current device
-const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   card: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: deviceWidth < 380 ? 18 : 36,
     marginHorizontal: 24,
     padding: 16,
     backgroundColor: Colors.primary800,
