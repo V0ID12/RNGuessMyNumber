@@ -1,5 +1,6 @@
 import {
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
@@ -18,41 +19,46 @@ function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
   const imageWidthThreshold = 500;
   const baseImageSize = 300;
   const reducedImageSize =
-    width > imageWidthThreshold ? baseImageSize - 150 : baseImageSize;
+    width > imageWidthThreshold ? baseImageSize / 2 : baseImageSize;
   const dynamicImageBorderRadius = reducedImageSize / 2;
 
   return (
-    <View style={styles.rootContainer}>
-      <Title>GAME OVER!</Title>
-      <View
-        style={[
-          styles.imageContainer,
-          {
-            height: reducedImageSize,
-            width: reducedImageSize,
-            margin: width > imageWidthThreshold,
-            borderRadius: dynamicImageBorderRadius,
-          },
-        ]}
-      >
-        <Image
-          style={styles.image}
-          source={require("../assets/images/success.png")}
-        />
+    <ScrollView style={styles.screen}>
+      <View style={styles.rootContainer}>
+        <Title>GAME OVER!</Title>
+        <View
+          style={[
+            styles.imageContainer,
+            {
+              height: reducedImageSize,
+              width: reducedImageSize,
+              margin: width > imageWidthThreshold,
+              borderRadius: dynamicImageBorderRadius,
+            },
+          ]}
+        >
+          <Image
+            style={styles.image}
+            source={require("../assets/images/success.png")}
+          />
+        </View>
+        <Text style={styles.summaryText}>
+          Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
+          rounds to guess the number{" "}
+          <Text style={styles.highlight}>{userNumber}</Text>.
+        </Text>
+        <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
       </View>
-      <Text style={styles.summaryText}>
-        Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
-        rounds to guess the number{" "}
-        <Text style={styles.highlight}>{userNumber}</Text>.
-      </Text>
-      <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
-    </View>
+    </ScrollView>
   );
 }
 
 export default GameOverScreen;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     flex: 1,
     padding: 24,
