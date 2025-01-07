@@ -17,7 +17,8 @@ function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
   // Adjust image size dynamically
   const imageWidthThreshold = 500;
   const baseImageSize = 300;
-  const reducedImageSize = width > imageWidthThreshold ? baseImageSize - 150 : baseImageSize;
+  const reducedImageSize =
+    width > imageWidthThreshold ? baseImageSize - 150 : baseImageSize;
   const dynamicImageBorderRadius = reducedImageSize / 2;
 
   return (
